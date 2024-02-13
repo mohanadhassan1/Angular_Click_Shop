@@ -1,0 +1,38 @@
+<h1>Parent component</h1>
+<div>
+  <label for="searchByPrice">Search By Price</label>
+  <input type="text" class="form-control" id="searchByPrice" name="searchByPrice" [(ngModel)]="listFilterValue">
+</div>
+
+<!-- child -->
+<app-products [searchByPriceInChild]="listFilterValue" (addPrdsEvent)="addToCart($event)"></app-products>
+<!-- <app-products [searchByPriceInChild]="listFilterValue" (addPrdsEvent)="this.productService.addToCart($event)"></app-products> -->
+<h2>{{"1234567891234567" | dateDisplay}}</h2>
+
+
+<caption>Cart</caption>
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Count</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Total</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    @for(item of cart;track item.id){
+    <tr>
+      <td>{{item.name}}</td>
+      <td>{{item.price}}</td>
+      <td>{{count[item.id] || 0}}</td>
+      <td>{{item.brand}}</td>
+      <td>{{(item.price * (count[item.id] || 0)).toFixed(2)}}</td>
+      <td><button class="btn btn-primary" (click)="deleteProduct(item.id)">Delete</button></td>
+    </tr>
+    }
+  </tbody>
+</table>

@@ -1,0 +1,118 @@
+<div class="container-fluid row">
+
+  <div class="p-5 pb-0">
+    <select [(ngModel)]="setListInChild">
+      <!-- <option selected>All</option> -->
+      @for (item of this.productService.categoryListFun(); track item.id) {
+      <option [value]=item.id>{{item.name}}</option>
+      }
+    </select>
+  </div>
+
+  <!-- <form class="border border-dark rounded col-6 m-3 p-3" #formAddProduct="ngForm" (ngSubmit)="editProduct()">
+        <div class="form-row mb-3">
+    
+          <div class="form-group col">
+            <label for="productName">Name</label>
+            <input type="text" class="form-control" id="productName" placeholder="Product Name" [(ngModel)]="nProduct.name" #nameInput="ngModel"
+            required pattern="[A-Za-z]{5,}" name="productName" [ngClass]="{'is-invalid': (nameInput.touched||nameInput.dirty) && !nameInput.valid}">
+          </div>
+    
+          <div class="form-group col">
+            <label for="productPrice">Price</label>
+            <input type="number" class="form-control" id="productPrice" placeholder="Product Price" [(ngModel)]="nProduct.price" #priceInput="ngModel"
+            required pattern="[0-9]{1,}" name="productPrice"  [ngClass]="{'is-invalid': (priceInput.touched||priceInput.dirty) && !priceInput.valid}">
+          </div>
+    
+          <div class="form-group col">
+            <label for="productQuantity">Quantity</label>
+            <input type="number" class="form-control" id="productQuantity" placeholder="Product Quantity" [(ngModel)]="nProduct.quantity" #quantityInput="ngModel"
+            required pattern="[0-9]{1,}" name="productQuantity" [ngClass]="{'is-invalid': (quantityInput.touched||quantityInput.dirty) && !quantityInput.valid}">
+          </div>
+    
+          <div class="form-group col">
+            <label for="productCategoryId">Category ID</label>
+            <input type="number" class="form-control" id="productCategoryId" placeholder="Product Category ID" [(ngModel)]="nProduct.categoryId" #categoryInput="ngModel"
+            required pattern="[0-9]{1,}" name="productCategoryId" [ngClass]="{'is-invalid': (categoryInput.touched||categoryInput.dirty) && !categoryInput.valid}">
+          </div>
+    
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="productCategoryId2">Category</label>
+              <select id="productCategoryId2" class="form-control">
+                <option selected>Choose Category</option>
+                <option>...</option>
+              </select>
+            </div>
+          </div>
+    
+          <div class="form-group col">
+            <label for="productBrand">Brand</label>
+            <input type="text" class="form-control" id="productBrand" placeholder="Product Brand" [(ngModel)]="nProduct.brand" #brandInput="ngModel"
+            required pattern="[A-Za-z]{1,}" name="productBrand" [ngClass]="{'is-invalid': (brandInput.touched||brandInput.dirty) && !brandInput.valid}">
+          </div>
+        </div>
+    
+        <button type="submit" class="btn btn-primary" [disabled]="formAddProduct.invalid">Add Product</button>
+      </form> -->
+
+  @for (item of productListFilter; track item.id) {
+    <!-- <div class="col-3 m-5 bg-light" appImgStyle="5px"> -->
+    <div class="col-3 m-5 bg-light" appImgStyle="5px" (click)="productDetails(item.id)">
+    @if (item.IsPurshased) {
+    <img *ngIf="item.IsPurshased" [src]="item.img" width="100%" height="250vh">
+    }
+    @else {
+    <div>Thanks for purchasing from our store.</div>
+    <h6>{{clientName}}</h6>
+    }
+    <h3>{{item.name}}</h3>
+    <h6>{{item.brand}}</h6>
+    <br>
+    <h3
+      [ngClass]="item.quantity == 0 ? 'text-decoration-line-through text-danger' : (item.quantity == 1) ? 'text-danger' :  'bg-light'">
+      {{item.price|currency:'USD'}}</h3>
+    <h5>{{item.quantity}}</h5>
+
+    @switch (item.quantity) {
+    @case (2) {
+    There is 2 only
+    }
+    @case (1) {
+    There is 1 only
+    }
+    @case (0) {
+    Out of Stock
+    }
+    @default {
+    In Stock
+    }
+    }
+    <br>
+
+    <button class="btn btn-primary" (click)="this.handleClick($event,item)" [disabled]="item.quantity==0">Buy</button>
+
+    <button class="btn btn-warning" (click)="this.editProductToggle($event, item.id)">Edit</button>
+    <!-- <button class="btn btn-warning" (click)="this.editProduct(item)">Edit</button> -->
+
+    <button class="btn btn-danger" (click)="this.deleteProduct($event, item)">Delete</button>
+    
+
+    @if (isFormVisible) {
+    <form (ngSubmit)="updateProduct(item.id, item)">
+      <input type="text" [(ngModel)]="item.name" name="name">
+      <input type="number" [(ngModel)]="item.price" name="price">
+      <input type="number" [(ngModel)]="item.quantity" name="quantity">
+      <!-- <input type="text" [(ngModel)]="item.brand" name="brand"> -->
+      <!-- <input type="number" [(ngModel)]="item.categoryId" name="categoryId"> -->
+      <button class="btn btn-warning" type="submit">Update</button>
+    </form>
+    }
+
+
+
+
+  </div>
+  }
+
+</div>

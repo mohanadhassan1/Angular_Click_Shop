@@ -1,0 +1,27 @@
+<!-- <p>user-authentication works!</p> -->
+<!-- <button class="btn btn-primary" (click)="loginFun()" [hidden]="isUser">Login</button> 
+    <button class="btn btn-danger" (click)="logoutFun()" [hidden]="!isUser">Logout</button> 
+     -->
+
+<form class="border border-dark rounded col-6 m-3 p-3" [formGroup]="formGroup" #formAddUser="ngForm"
+    (ngSubmit)="loginFun()">
+    <div class="form-row mb-3">
+
+        <div class="form-group col">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" class="form-control" id="email" placeholder="Email" name="email"
+                [ngClass]="{'is-invalid': (email?.touched||email?.dirty)&&email?.invalid}">
+        </div>
+
+        <div class="form-group col">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password"
+                name="password" [ngClass]="{'is-invalid': (password?.touched||password?.dirty)&&password?.invalid}">
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="loginFun()" [hidden]="isUser" [disabled]="formAddUser.invalid">Login</button>
+</form>
+
+<button class="btn btn-danger" (click)="logoutFun()" [hidden]="!isUser">Logout</button>

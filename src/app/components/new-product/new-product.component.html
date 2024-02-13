@@ -1,0 +1,47 @@
+
+<form class="border border-dark rounded col-6 m-3 p-3" #formAddProduct="ngForm" (ngSubmit)="addProduct()">
+    <div class="form-row mb-3">
+
+      <div class="form-group col">
+        <label for="productName">Name</label>
+        <input type="text" class="form-control" id="productName" placeholder="Product Name" [(ngModel)]="newProduct.name" #nameInput="ngModel"
+        required pattern="[A-Za-z]{5,}" name="productName" [ngClass]="{'is-invalid': (nameInput.touched||nameInput.dirty) && !nameInput.valid}">
+      </div>
+
+      <div class="form-group col">
+        <label for="productPrice">Price</label>
+        <input type="number" class="form-control" id="productPrice" placeholder="Product Price" [(ngModel)]="newProduct.price" #priceInput="ngModel"
+        required pattern="[0-9]{1,}" name="productPrice"  [ngClass]="{'is-invalid': (priceInput.touched||priceInput.dirty) && !priceInput.valid}">
+      </div>
+
+      <div class="form-group col">
+        <label for="productQuantity">Quantity</label>
+        <input type="number" class="form-control" id="productQuantity" placeholder="Product Quantity" [(ngModel)]="newProduct.quantity" #quantityInput="ngModel"
+        required pattern="[0-9]{1,}" name="productQuantity" [ngClass]="{'is-invalid': (quantityInput.touched||quantityInput.dirty) && !quantityInput.valid}">
+      </div>
+
+      <div class="form-group col">
+        <label for="productCategoryId">Category ID</label>
+        <input type="number" class="form-control" id="productCategoryId" placeholder="Product Category ID" [(ngModel)]="newProduct.categoryId" #categoryInput="ngModel"
+        required pattern="[0-9]{1,}" name="productCategoryId" [ngClass]="{'is-invalid': (categoryInput.touched||categoryInput.dirty) && !categoryInput.valid}">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <label for="productCategoryId2">Category</label>
+          <select id="productCategoryId2" class="form-control">
+            <option selected>Choose Category</option>
+            <option>...</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="productBrand">Brand</label>
+        <input type="text" class="form-control" id="productBrand" placeholder="Product Brand" [(ngModel)]="newProduct.brand" #brandInput="ngModel"
+        required pattern="[A-Za-z]{1,}" name="productBrand" [ngClass]="{'is-invalid': (brandInput.touched||brandInput.dirty) && !brandInput.valid}">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="formAddProduct.invalid">Add Product</button>
+  </form>

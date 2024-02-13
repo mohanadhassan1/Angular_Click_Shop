@@ -1,0 +1,67 @@
+<div class="container">
+  
+  <div class="title-box">
+    <div class="prevNext">
+      <button class="btn btn-outline-dark btn-lg" (click)="backFun()">Back</button>
+      <div class="amount-box">
+        <div class="minus-box">
+          <button class="border-0" (click)="previousFun()" [disabled]="prdID == productIdList[0]"><i class="fa-solid fa-arrow-left"></i></button>
+        </div>
+        <div class="plus-box">
+          <button class="border-0" (click)="nextFun()"  [disabled]="prdID == productIdList[productIdList.length-1]"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+    <h1>Your shopping cart</h1>
+    <p>ID: {{product?.id}}</p>
+  </div>
+
+  <div class="product-box">
+    <div class="img-box">
+      <img [src]="product?.img" width="100%" height="200vh">
+    </div>
+    <div class="info-box">
+      <h2>{{product?.name}}</h2>
+      <h6>Brand: {{product?.brand}}</h6>
+      <p class="stock">
+        @switch (product?.quantity) {
+        @case (0) {Out Of Stock}
+        @case (1) {Last One Item}
+        @case (2) {Last Two Item}
+        @default {In Stock}
+        }
+      </p>
+
+      <div class="amount-box">
+        <div class="minus-box">
+          <i class="fa-solid fa-minus"></i>
+        </div>
+        <input type="number" readonly value="1" min="0" max="10" class="amount" id="amount">
+        <div class="plus-box">
+          <i class="fa-solid fa-plus"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <hr>
+  <div class="cost-box">
+    <div>
+      <p>Standard Package</p>
+      <p>FREE</p>
+    </div>
+    <div>
+      <p>Total VAT</p>
+      <p class="VAT">{{product?.price|currency}}</p>
+    </div>
+    <div>
+      <p>Total NOK</p>
+      <!-- <p class="NOK">{{product?.price * count}}</p> -->
+    </div>
+    <p class="gift">Got a gift card or a promotional code?</p>
+    <span class="applied">Promo Applied</span>
+  </div>
+  <button class="btn btn-primary" [disabled]="product?.quantity==0">Checkout</button>
+  
+</div>
+
